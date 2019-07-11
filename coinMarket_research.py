@@ -25,8 +25,8 @@ class CoinMarketResearch:
             print('이전 거래소 조사 파일의 절대경로를 입력해주세요.')
             self.load_wb_previous_researcher = load_workbook(str(input()), data_only=True)
 
-            self.load_ws_market_names = self.load_wb_market_names['Sheet1']
-            self.load_wb_previous_researcher = self.load_wb_previous_researcher['Sheet1']
+            self.load_ws_market_names = self.load_wb_market_names['total']
+            self.load_wb_previous_researcher = self.load_wb_previous_researcher['total']
         except FileNotFoundError:
             print('파일을 찾을 수 없습니다.')
             sys.exit()
