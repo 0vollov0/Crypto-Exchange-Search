@@ -25,10 +25,13 @@ class CoinMarketResearch:
             print('이전 거래소 조사 파일의 절대경로를 입력해주세요.')
             self.load_wb_previous_researcher = load_workbook(str(input()), data_only=True)
 
-            self.load_ws_market_names = self.load_wb_market_names['total']
+            self.load_ws_market_names = self.load_wb_market_names['market_name']
             self.load_wb_previous_researcher = self.load_wb_previous_researcher['total']
         except FileNotFoundError:
             print('파일을 찾을 수 없습니다.')
+            sys.exit()
+        except KeyError:
+            print('엑셀파일의 Sheet 이름의 형식을 맞춰주세요 ex)거래소 이름 sheet = market_name , 이전 거래소 조사 정보 sheet = total')
             sys.exit()
 
     def register_market_name(self):
@@ -142,5 +145,5 @@ class CoinMarketResearch:
                     write_ws_sheet_closed.append([index+1,coin['market'],coin['Bitcoin'],coin['Ethereum'],coin['XRP'],changed_result])
             write_ws_sheet_total.append([index+1,coin['market'],coin['Bitcoin'],coin['Ethereum'],coin['XRP'],changed_result])
 
-        write_wb.save('C:/Users/user/Desktop/인턴/거래소 리스트 조사_test '+time.strftime('%Y_%m_%d', time.localtime(time.time()))+'.xlsx')
+        write_wb.save(os.getcwd()+'/거래소 리스트 조사('+time.strftime('%Y_%m_%d_%H_%M', time.localtime(time.time()))+').xlsx')
         write_wb.close()
